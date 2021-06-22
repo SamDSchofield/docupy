@@ -4,7 +4,7 @@ A (probably silly) terminal command wrapper used for documenting the command
 that was run.
 
 Install:
-```shell script
+```
 $ pip install git+https://github.com/SamDSchofield/docupy.git
 ```
 

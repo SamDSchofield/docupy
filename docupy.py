@@ -15,12 +15,13 @@ def doc(command, output):
     p = subprocess.Popen(command)
     p.wait()
 
-    with open(output, "w") as out_file:
+    with open(output, "a+") as out_file:
         out_file.write(f"Command:\n{' '.join(command)}\n\n")
         from datetime import datetime
 
         now = datetime.now()
         out_file.write(f"Run at {now}\n")
-        out_file.write(f"\nNotes:\n{notes}")
+        out_file.write(f"\nNotes:\n{notes}\n")
+        out_file.write("*" * 80 + "\n")
 
 doc()
