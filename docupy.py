@@ -4,6 +4,7 @@ Wrapper for commands you run in the terminal which save the command and meta dat
 
 import click
 import subprocess
+from datetime import datetime
 
 
 @click.command()
@@ -11,17 +12,19 @@ import subprocess
 @click.option("--output", default=".")
 def doc(command, output):
     notes = input("Notes: ")
-
-    p = subprocess.Popen(command)
-    p.wait()
-
     with open(output, "a+") as out_file:
-        out_file.write(f"Command:\n{' '.join(command)}\n\n")
-        from datetime import datetime
+        out_command = " ".join(command)
+        out_file.write(f"Command:\n{out_command}\n\n")
 
         now = datetime.now()
         out_file.write(f"Run at {now}\n")
         out_file.write(f"\nNotes:\n{notes}\n")
         out_file.write("*" * 80 + "\n")
+
+    if len(command[0].split()) > 1:
+       command = command[0].split()
+    p = subprocess.Popen(command)
+    p.wait()
+
 
 doc()
