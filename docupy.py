@@ -5,12 +5,14 @@ Wrapper for commands you run in the terminal which save the command and meta dat
 import click
 import subprocess
 from datetime import datetime
+from pathlib import Path
 
 
 @click.command()
 @click.argument("command", nargs=-1)
 @click.option("--output", default=".")
 def doc(command, output):
+    Path(output).parent.mkdir(parents=True, exist_ok=True)
     notes = input("Notes: ")
     with open(output, "a+") as out_file:
         out_command = " ".join(command)
